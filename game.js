@@ -25,6 +25,7 @@ const gameState = {
             enemy: null
         },
     },
+    history: [] // For history log
 };
 
 // --- Render Function ---
@@ -38,12 +39,15 @@ function render() {
     document.getElementById('main-display').textContent = display;
     document.getElementById('player-stats').textContent = `Health: ${gameState.player.health} | Attack: ${gameState.player.attack}`;
     document.getElementById('inventory').textContent = 'Inventory: ' + (gameState.player.inventory.length ? gameState.player.inventory.join(', ') : 'empty');
+    updateHistory();
 }
 
 // --- Command Handler ---
 function handleCommand(input) {
+    if (!input.trim()) return;
     const [command, ...args] = input.trim().toLowerCase().split(' ');
     const arg = args.join(' ');
+    addToHistory('> ' + input);
     switch (command) {
         case 'go':
             move(arg);
@@ -187,6 +191,20 @@ function escape() {
 
 function displayMessage(msg) {
     document.getElementById('main-display').textContent += '\n' + msg;
+    addToHistory(msg);
+}
+
+function addToHistory(msg) {
+    gameState.history.push(msg);
+    if (gameState.history.length > 50) gameState.history.shift();
+    updateHistory();
+}
+
+function updateHistory() {
+    const historyDiv = document.getElementById('history-content');
+    if (!historyDiv) return;
+    historyDiv.textContent = gameState.history.join('\n');
+    historyDiv.scrollTop = historyDiv.scrollHeight;
 }
 
 // --- Game Loop Setup ---

@@ -8,10 +8,28 @@
 </head>
 <body>
     <div id="game-container">
-        <div id="main-display"></div>
-        <div id="player-stats"></div>
-        <div id="inventory"></div>
-        <input type="text" id="command-input" placeholder="Enter command..." autofocus />
+        <div id="command-list">
+            <h3>Command List</h3>
+            <ul>
+                <li><b>go [direction]</b> - Move (e.g., go north)</li>
+                <li><b>look</b> - Look around</li>
+                <li><b>take [item/number]</b> - Take item</li>
+                <li><b>attack</b> - Attack enemy</li>
+                <li><b>heal</b> - Use potion</li>
+                <li><b>item</b> - Show inventory</li>
+                <li><b>escape</b> - Try to escape</li>
+            </ul>
+        </div>
+        <div id="main-area">
+            <div id="main-display"></div>
+            <div id="player-stats"></div>
+            <div id="inventory"></div>
+            <input type="text" id="command-input" placeholder="Enter command..." autofocus />
+        </div>
+        <div id="history-log">
+            <h3>History</h3>
+            <div id="history-content"></div>
+        </div>
     </div>
     <script src="game.js"></script>
 </body>

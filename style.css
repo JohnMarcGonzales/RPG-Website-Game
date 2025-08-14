@@ -6,12 +6,48 @@ body {
     padding: 0;
 }
 #game-container {
-    max-width: 600px;
+    display: flex;
+    flex-direction: row;
+    max-width: 900px;
     margin: 40px auto;
     background: #222;
     border-radius: 8px;
     box-shadow: 0 0 10px #0008;
     padding: 24px;
+    gap: 24px;
+}
+#command-list {
+    width: 200px;
+    background: #181818;
+    border-radius: 6px;
+    padding: 16px 12px;
+    margin-right: 0;
+    color: #b0e0ff;
+    font-size: 0.98em;
+    box-shadow: 0 0 6px #0004;
+    min-width: 160px;
+    max-width: 220px;
+    flex-shrink: 0;
+}
+#command-list h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    color: #6cf;
+    letter-spacing: 1px;
+}
+#command-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#command-list li {
+    margin-bottom: 8px;
+}
+#main-area {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 #main-display {
     min-height: 120px;
@@ -29,4 +65,33 @@ body {
     font-size: 1em;
     background: #333;
     color: #fff;
+}
+#history-log {
+    width: 220px;
+    background: #181818;
+    border-radius: 6px;
+    padding: 16px 12px;
+    margin-left: 0;
+    color: #ffe0b0;
+    font-size: 0.98em;
+    box-shadow: 0 0 6px #0004;
+    min-width: 160px;
+    max-width: 240px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+#history-log h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    color: #fc6;
+    letter-spacing: 1px;
+}
+#history-content {
+    flex: 1 1 0;
+    overflow-y: auto;
+    max-height: 400px;
+    white-space: pre-line;
+    font-size: 0.97em;
 }
