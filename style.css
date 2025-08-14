@@ -92,6 +92,10 @@ body {
     flex: 1 1 0;
     overflow-y: auto;
     max-height: 400px;
+    min-height: 200px;
     white-space: pre-line;
     font-size: 0.97em;
+    cursor: pointer;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #222;
 }
