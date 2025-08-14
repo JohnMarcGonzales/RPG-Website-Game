@@ -13,57 +13,138 @@
     color: #6cf;
     letter-spacing: 1px;
 }
-#map-ascii {
-    font-family: 'Consolas', monospace;
-    white-space: pre;
+#map-box {
+    width: 280px;
+    background: linear-gradient(135deg, #1a233a 60%, #2a3a4a 100%);
+    border-radius: 12px;
+    padding: 18px 14px 18px 14px;
+    margin-left: 0;
     color: #b0e0ff;
-    margin: 0;
-    font-size: 0.93em;
-}
-body {
-    background: #181818;
-    color: #f0f0f0;
-    font-family: 'Consolas', monospace;
-    margin: 0;
-    padding: 0;
-}
-#game-container {
+    font-size: 1.05em;
+    box-shadow: 0 0 18px #1a233a, 0 0 0 2px #6cf inset;
+    min-width: 180px;
+    max-width: 340px;
+    flex-shrink: 0;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: row;
-    max-width: 900px;
-    margin: 40px auto;
-    background: #222;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #0008;
-    padding: 24px;
-    gap: 24px;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #6cf;
+    margin-bottom: 12px;
 }
-#command-list {
-    width: 200px;
+.map-node {
+    display: inline-block;
+    padding: 4px 14px;
+    margin: 2px 4px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #2a3a4a 60%, #3a4a6c 100%);
+    color: #b0e0ff;
+    cursor: pointer;
+    border: 2px solid #3a5c8c;
+    box-shadow: 0 2px 8px #0006;
+    font-family: 'Cinzel', 'Consolas', serif;
+    font-size: 1.05em;
+    letter-spacing: 1px;
+    transition: background 0.2s, border 0.2s, color 0.2s;
+}
+.map-node.current {
+    background: linear-gradient(90deg, #ffe066 60%, #ffd700 100%);
+    color: #222;
+    border: 2.5px solid #fff;
+    font-weight: bold;
+    box-shadow: 0 0 16px #ffe066, 0 0 0 2px #fff inset;
+}
+.map-node.path {
+    background: linear-gradient(90deg, #3a5c8c 60%, #6cf 100%);
+    color: #fff;
+    border: 2px solid #6cf;
+}
+.map-connector {
+    color: #6cf;
+    font-weight: bold;
+    margin: 0 2px;
+    font-size: 1.2em;
+    text-shadow: 0 0 4px #6cf, 0 0 2px #fff;
+}
+#main-area {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: #23243a;
+    border-radius: 8px;
+    box-shadow: 0 0 8px #0004;
+    padding: 18px 14px 18px 14px;
+    margin: 0 0 12px 0;
+    box-sizing: border-box;
+}
+#main-display {
+    min-height: 120px;
+    margin-bottom: 16px;
+    white-space: pre-line;
+    background: #181a2a;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 1.08em;
+    box-shadow: 0 0 6px #0002;
+}
+#player-stats, #inventory {
+    margin-bottom: 12px;
+    background: #23243a;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 1em;
+    color: #ffe066;
+    box-shadow: 0 0 4px #0002;
+}
+#command-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    font-size: 1em;
+    background: #333;
+    color: #fff;
+    margin-top: 8px;
+    box-shadow: 0 0 4px #0002;
+}
+#history-log {
+    width: 220px;
     background: #181818;
     border-radius: 6px;
     padding: 16px 12px;
-    margin-right: 0;
-    color: #b0e0ff;
+    margin-left: 0;
+    color: #ffe0b0;
     font-size: 0.98em;
     box-shadow: 0 0 6px #0004;
     min-width: 160px;
-    max-width: 220px;
+    max-width: 240px;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
 }
-#command-list h3 {
+#history-log h3 {
     margin-top: 0;
     font-size: 1.1em;
-    color: #6cf;
+    color: #fc6;
     letter-spacing: 1px;
 }
-#command-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-#command-list li {
-    margin-bottom: 8px;
+#history-content {
+    flex: 1 1 0;
+    overflow-y: auto;
+    max-height: 400px;
+    min-height: 200px;
+    white-space: pre-line;
+    font-size: 0.97em;
+    cursor: pointer;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #222;
+    background: #23243a;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 0 4px #0002;
 }
 #main-area {
     flex: 1 1 0;

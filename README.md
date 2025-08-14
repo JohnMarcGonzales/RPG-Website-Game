@@ -8,9 +8,11 @@ A browser-based text RPG inspired by DnD, created by John Marc Gonzales. Feature
 - Inventory, 50+ equipable and throwable items
 - Leveling system with skill points (health, speed, defense)
 - Critical hit and miss mechanics
-- Simple map and command list UI
+- Immersive, interactive map and command list UI
 - History log and backtracking
 - Name prompt and stats display
+- Responsive UI for phone, tablet, desktop, and custom sizes
+- "Equip best" command for optimal gear
 
 ## Credits
 - Made by John Marc Gonzales

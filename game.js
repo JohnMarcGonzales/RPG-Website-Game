@@ -192,7 +192,11 @@ function handleCommand(input) {
             showInventory(arg);
             break;
         case 'equip':
-            equipItem(arg);
+            if (arg === 'best') {
+                equipBest();
+            } else {
+                equipItem(arg);
+            }
             break;
         case 'escape':
             escape();
@@ -216,6 +220,32 @@ function handleCommand(input) {
             displayMessage("I don't understand that command.");
     }
 }
+
+function equipBest() {
+    // Find best for each slot
+    const slots = ['head', 'body', 'weapon'];
+    for (const slot of slots) {
+        let best = null;
+        let bestScore = -Infinity;
+        for (const item of gameState.player.inventory) {
+            const equip = EQUIP_ITEMS.find(e => e.name === item && e.slot === slot);
+            if (equip) {
+                // Score: prioritize attack, defense, speed, health
+                let score = equip.attack * 2 + equip.defense * 2 + equip.speed + equip.health;
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = equip;
+                }
+            }
+        }
+        if (best) {
+            gameState.player.equipped[slot] = best.name;
+        }
+    }
+    displayMessage('You equip the best available items.');
+    updateStats();
+}
+
 // --- NPC and Story Functions ---
 function talkToNPC(arg) {
     const loc = gameState.world[gameState.player.currentLocation];
@@ -725,19 +755,22 @@ function throwItem(arg) {
 
 // --- Interactive Map ---
 const MAP_LAYOUT = [
-    [null, null, {id:'deepCave', label:'Cave'}, null, null],
-    [null, null, '|', null, null],
-    [null, null, {id:'caveEntrance', label:'Mountain Pass'}, null, null],
-    [null, null, '|', null, null],
-    [null, {id:'innRoom', label:'Inn Room'}, '|', {id:'inn', label:'Inn'}, null],
-    [null, null, '|', null, null],
+    // Fantasy immersive layout
+    [null, null, {id:'deepCave', label:'Deep Cave'}, null, null, null],
+    [null, null, '|', null, null, null],
+    [null, null, {id:'caveEntrance', label:'Cave Entrance'}, null, null, null],
+    [null, null, '|', null, null, null],
+    [null, null, {id:'mountainPass', label:'Mountain Pass'}, null, null, null],
+    [null, null, '|', null, null, null],
+    [null, {id:'innRoom', label:'Inn Room'}, '|', {id:'inn', label:'Inn'}, null, null],
+    [null, null, '|', null, null, null],
     [null, {id:'village', label:'Village'}, '--', {id:'forestEdge', label:'Forest Edge'}, '--', {id:'tunnel', label:'Tunnel'}, '--', {id:'cultChamber', label:'Cult Chamber'}],
     [null, null, '|', null, null, '|', null, null],
-    [null, null, {id:'stairsDown', label:'Stairs Down'}, null, null],
-    [null, null, '|', null, null],
-    [null, null, {id:'guardRoom', label:'Guard Room'}, null, null],
-    [null, null, '|', null, null],
-    [null, null, {id:'cell', label:'Cell'}, null, null],
+    [null, null, {id:'stairsDown', label:'Stairs Down'}, null, null, null],
+    [null, null, '|', null, null, null],
+    [null, null, {id:'guardRoom', label:'Guard Room'}, null, null, null],
+    [null, null, '|', null, null, null],
+    [null, null, {id:'cell', label:'Cell'}, null, null, null],
 ];
 
 function renderInteractiveMap() {
@@ -824,3 +857,20 @@ function setupCommandInput() {
     setupCommandInput();
     displayMessage(`Welcome, ${gameState.player.name}! Type look to begin your adventure.`);
 })();
+
+// --- Path Validation Utility ---
+function validateWorldPaths() {
+    const errors = [];
+    for (const [locKey, loc] of Object.entries(gameState.world)) {
+        for (const [dir, dest] of Object.entries(loc.exits)) {
+            if (!gameState.world[dest]) {
+                errors.push(`Location '${locKey}' has exit '${dir}' to missing location '${dest}'`);
+            }
+        }
+    }
+    if (errors.length) {
+        alert('World Path Errors Found:\n' + errors.join('\n'));
+    }
+}
+// Call this in dev mode or on startup for debugging
+// validateWorldPaths();
